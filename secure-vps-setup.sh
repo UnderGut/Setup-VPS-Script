@@ -9,6 +9,11 @@ cat > /tmp/secure_ssh.sh <<'EOF'
 # ║  License:  MIT                                                               ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
+# Re-attach stdin to terminal if running via pipe (curl|bash)
+if [[ ! -t 0 ]] && [[ -e /dev/tty ]]; then
+    exec </dev/tty
+fi
+
 set -euo pipefail
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1678,12 +1683,8 @@ else
     echo -e "${GREEN}${BOLD}✅ $(msg server_secured)${RESET}"
 fi
 
-EOF
 
-# Re-attach stdin to terminal for interactive mode when piped (curl|bash)
-if [[ ! -t 0 ]] && [[ -e /dev/tty ]]; then
-    exec </dev/tty
-fi
+EOF
 
 bash /tmp/secure_ssh.sh "$@"
 _exit_code=$?
