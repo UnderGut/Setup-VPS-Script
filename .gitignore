@@ -1,0 +1,19 @@
+# Ignore GitHub-specific folder (copilot instructions, etc.)
+.github/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
