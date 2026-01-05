@@ -584,7 +584,11 @@ select_language() {
     
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    echo -e "${BOLD}║           🌐 SELECT LANGUAGE / ВЫБЕРИТЕ ЯЗЫК                  ║${RESET}"
+    local lang_text="🌐 SELECT LANGUAGE / ВЫБЕРИТЕ ЯЗЫК"
+    local box_width=63
+    local lang_len=${#lang_text}
+    local lang_pad=$(( (box_width - lang_len) / 2 ))
+    printf "${BOLD}║%*s%s%*s║${RESET}\n" $lang_pad "" "$lang_text" $((box_width - lang_pad - lang_len)) ""
     echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
     echo ""
     echo -e "  ${CYAN}1)${RESET} English"
@@ -627,9 +631,16 @@ check_os() {
 interactive_setup() {
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    echo -e "${BOLD}║          🔧 $(msg welcome)                      ║${RESET}"
+    local welcome_text="🔧 $(msg welcome)"
+    local box_width=63
+    local welcome_len=${#welcome_text}
+    local welcome_pad=$(( (box_width - welcome_len) / 2 ))
+    printf "${BOLD}║%*s%s%*s║${RESET}\n" $welcome_pad "" "$welcome_text" $((box_width - welcome_pad - welcome_len)) ""
     echo -e "${BOLD}╠═══════════════════════════════════════════════════════════════╣${RESET}"
-    echo -e "${BOLD}║  ${GREEN}$(msg for_beginners)${RESET}    ${BOLD}║${RESET}"
+    local beginners_text="$(msg for_beginners)"
+    local beginners_len=${#beginners_text}
+    local beginners_pad=$(( (box_width - beginners_len) / 2 ))
+    printf "${BOLD}║${RESET}%*s${GREEN}%s${RESET}%*s${BOLD}║${RESET}\n" $beginners_pad "" "$beginners_text" $((box_width - beginners_pad - beginners_len)) ""
     echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
     
     # 1. SSH Port
@@ -694,7 +705,11 @@ interactive_setup() {
     # Summary
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    echo -e "${BOLD}║              📋 $(msg selected_settings)                       ║${RESET}"
+    local settings_text="📋 $(msg selected_settings)"
+    local box_width=63
+    local text_len=${#settings_text}
+    local padding=$(( (box_width - text_len) / 2 ))
+    printf "${BOLD}║%*s%s%*s║${RESET}\n" $padding "" "$settings_text" $((box_width - padding - text_len)) ""
     echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
     echo ""
     
@@ -1596,7 +1611,11 @@ fi
 
 echo ""
 echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${BOLD}║                    📊 SETUP COMPLETE                          ║${RESET}"
+local complete_text="📊 SETUP COMPLETE"
+local box_width=63
+local complete_len=${#complete_text}
+local complete_pad=$(( (box_width - complete_len) / 2 ))
+printf "${BOLD}║%*s%s%*s║${RESET}\n" $complete_pad "" "$complete_text" $((box_width - complete_pad - complete_len)) ""
 echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "  🔐 SSH Port:        ${GREEN}$SSH_PORT${RESET}"
