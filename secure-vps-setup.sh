@@ -881,7 +881,7 @@ STEP=0
 TOTAL_STEPS=16
 
 next_step() {
-    ((STEP++))
+    ((STEP++)) || true
     log_step "$(msg step) $STEP $(msg of) $TOTAL_STEPS: $1"
 }
 
@@ -1067,7 +1067,7 @@ bantime = -1"
     systemd_setup "fail2ban" "restart"
     log_success "Fail2Ban configured (4 levels)"
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1112,7 +1112,7 @@ if [[ "$SETUP_SWAP" == "true" ]]; then
         fi
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1143,7 +1143,7 @@ net.ipv4.tcp_slow_start_after_idle=0'
         log_success "BBR: $BBR_STATUS"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1204,7 +1204,7 @@ net.ipv4.tcp_rfc1337=1'
         log_success "$(msg kernel_hardened)"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1281,7 +1281,7 @@ fs.nr_open=2097152"
         log_success "$(msg netlimits_configured): max=$CONNTRACK_MAX"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1366,7 +1366,7 @@ if [[ "$SETUP_LOGROTATE" == "true" ]]; then
         log_success "$(msg logrotate_configured): ${ROTATE_COUNT} days"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1424,7 +1424,7 @@ logdir /var/log/chrony"
         log_success "$(msg ntp_configured): $SYNC_STATUS"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1450,7 +1450,7 @@ if [[ "$SETUP_TIMEZONE" == "true" ]]; then
         log_success "$(msg timezone_set): $NEW_TZ"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1473,7 +1473,7 @@ APT::Periodic::AutocleanInterval "7";'
         log_success "$(msg autoupdate_enabled)"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1494,7 +1494,7 @@ net.ipv6.conf.lo.disable_ipv6=1'
         log_success "$(msg ipv6_disabled)"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1528,7 +1528,7 @@ StorageDir: "/opt/tblocker"'
         log_success "Torrent Blocker installed"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1570,7 +1570,7 @@ if [[ "$SETUP_RATELIMIT" == "true" ]]; then
         log_success "$(msg ratelimit_configured)"
     fi
 else
-    ((TOTAL_STEPS--))
+    ((TOTAL_STEPS--)) || true
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
