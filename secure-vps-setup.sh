@@ -616,11 +616,14 @@ check_os() {
     source /etc/os-release
     local supported=false
     
-    if [[ "$ID" == "debian" ]] && [[ "${VERSION_ID:-0}" -ge 11 ]]; then
-        supported=true
+    if [[ "$ID" == "debian" ]]; then
+        # Support Debian 11+, testing (trixie), sid, and versions without VERSION_ID
+        if [[ "${VERSION_ID:-99}" -ge 11 ]] || [[ "$VERSION_CODENAME" =~ ^(trixie|sid|testing)$ ]]; then
+            supported=true
+        fi
     elif [[ "$ID" == "ubuntu" ]]; then
         local major_ver="${VERSION_ID%%.*}"
-        [[ "$major_ver" -ge 20 ]] && supported=true
+        [[ "${major_ver:-99}" -ge 20 ]] && supported=true
     fi
     
     if [[ "$supported" != "true" ]]; then
@@ -1677,9 +1680,12 @@ fi
 
 EOF
 
-# Re-attach stdin to terminal for interactive mode when piped
-if [[ -t 1 ]] && [[ ! -t 0 ]]; then
-    exec 0</dev/tty
+# Re-attach stdin to terminal for interactive mode when piped (curl|bash)
+if [[ ! -t 0 ]] && [[ -e /dev/tty ]]; then
+    exec </dev/tty
 fi
 
-bash /tmp/secure_ssh.sh "$@" && rm -f /tmp/secure_ssh.sh
+bash /tmp/secure_ssh.sh "$@"
+_exit_code=$?
+rm -f /tmp/secure_ssh.sh
+exit $_exit_code
