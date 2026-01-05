@@ -582,12 +582,14 @@ show_option_and_ask() {
 select_language() {
     if [[ "$LANG_CODE" != "auto" ]]; then return; fi
     
+    local box_width=63
+    local lang_msg="SELECT LANGUAGE / ВЫБЕРИТЕ ЯЗЫК"
+    local lang_text="🌐 $lang_msg"
+    local lang_len=$(( ${#lang_msg} + 3 ))  # emoji = 2 visual chars + space
+    local lang_pad=$(( (box_width - lang_len) / 2 ))
+    
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    local lang_text="🌐 SELECT LANGUAGE / ВЫБЕРИТЕ ЯЗЫК"
-    local box_width=63
-    local lang_len=${#lang_text}
-    local lang_pad=$(( (box_width - lang_len) / 2 ))
     printf "${BOLD}║%*s%s%*s║${RESET}\n" $lang_pad "" "$lang_text" $((box_width - lang_pad - lang_len)) ""
     echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
     echo ""
@@ -629,11 +631,13 @@ check_os() {
 }
 
 interactive_setup() {
+    local box_width=63
+    
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    local welcome_text="🔧 $(msg welcome)"
-    local box_width=63
-    local welcome_len=${#welcome_text}
+    local welcome_msg="$(msg welcome)"
+    local welcome_text="🔧 $welcome_msg"
+    local welcome_len=$(( ${#welcome_msg} + 3 ))  # emoji = 2 visual chars + space
     local welcome_pad=$(( (box_width - welcome_len) / 2 ))
     printf "${BOLD}║%*s%s%*s║${RESET}\n" $welcome_pad "" "$welcome_text" $((box_width - welcome_pad - welcome_len)) ""
     echo -e "${BOLD}╠═══════════════════════════════════════════════════════════════╣${RESET}"
@@ -705,9 +709,9 @@ interactive_setup() {
     # Summary
     echo ""
     echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-    local settings_text="📋 $(msg selected_settings)"
-    local box_width=63
-    local text_len=${#settings_text}
+    local settings_msg="$(msg selected_settings)"
+    local settings_text="📋 $settings_msg"
+    local text_len=$(( ${#settings_msg} + 3 ))  # emoji = 2 visual chars + space
     local padding=$(( (box_width - text_len) / 2 ))
     printf "${BOLD}║%*s%s%*s║${RESET}\n" $padding "" "$settings_text" $((box_width - padding - text_len)) ""
     echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
@@ -1609,13 +1613,15 @@ fi
 #  FINAL REPORT
 # ══════════════════════════════════════════════════════════════════════════════
 
+_box_width=63
+_complete_msg="SETUP COMPLETE"
+_complete_text="📊 $_complete_msg"
+_complete_len=$(( ${#_complete_msg} + 3 ))  # emoji = 2 visual chars + space
+_complete_pad=$(( (_box_width - _complete_len) / 2 ))
+
 echo ""
 echo -e "${BOLD}╔═══════════════════════════════════════════════════════════════╗${RESET}"
-local complete_text="📊 SETUP COMPLETE"
-local box_width=63
-local complete_len=${#complete_text}
-local complete_pad=$(( (box_width - complete_len) / 2 ))
-printf "${BOLD}║%*s%s%*s║${RESET}\n" $complete_pad "" "$complete_text" $((box_width - complete_pad - complete_len)) ""
+printf "${BOLD}║%*s%s%*s║${RESET}\n" $_complete_pad "" "$_complete_text" $((_box_width - _complete_pad - _complete_len)) ""
 echo -e "${BOLD}╚═══════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "  🔐 SSH Port:        ${GREEN}$SSH_PORT${RESET}"
