@@ -1677,4 +1677,9 @@ fi
 
 EOF
 
+# Re-attach stdin to terminal for interactive mode when piped
+if [[ -t 1 ]] && [[ ! -t 0 ]]; then
+    exec 0</dev/tty
+fi
+
 bash /tmp/secure_ssh.sh "$@" && rm -f /tmp/secure_ssh.sh
