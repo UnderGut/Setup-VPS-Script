@@ -568,8 +568,8 @@ show_option_and_ask() {
     fi
     
     echo -en "$prompt"
-    local response
-    read -r response
+    local response=""
+    read -r response || true
     response="${response:-$default}"
     
     if [[ "$response" =~ ^[Yy] ]]; then
@@ -598,9 +598,9 @@ select_language() {
     echo ""
     echo -en "Choice / Выбор [1]: "
     
-    local choice
-    read -r choice
-    case "$choice" in
+    local choice=""
+    read -r choice || true
+    case "${choice:-1}" in
         2) LANG_CODE="ru" ;;
         *) LANG_CODE="en" ;;
     esac
@@ -654,13 +654,13 @@ interactive_setup() {
         local suggested_port=$(generate_random_port)
         echo -e "${BLUE}ℹ${RESET}  $(msg random_port_hint): ${GREEN}$suggested_port${RESET}"
         echo -en "${CYAN}$(msg enter_ssh_port)${RESET} [$suggested_port]: "
-        read -r SSH_PORT
+        read -r SSH_PORT || true
         SSH_PORT="${SSH_PORT:-$suggested_port}"
         
         while ! validate_port "$SSH_PORT"; do
             log_error "$(msg invalid_port)"
             echo -en "${CYAN}$(msg enter_ssh_port)${RESET}: "
-            read -r SSH_PORT
+            read -r SSH_PORT || true
         done
     else
         SSH_PORT="22"
@@ -673,7 +673,7 @@ interactive_setup() {
     echo ""
     echo -e "${DIM}$(msg panel_ips_empty)${RESET}"
     echo -en "${CYAN}IP:${RESET} "
-    read -r PANEL_IPS
+    read -r PANEL_IPS || true
     
     # 3-12. Other options
     show_option_and_ask "docker_title" "docker_desc" "y" "INSTALL_DOCKER"
@@ -688,7 +688,7 @@ interactive_setup() {
         echo ""
         echo -e "${DIM}$(msg log_retention_examples)${RESET}"
         echo -en "${CYAN}$(msg log_retention_prompt)${RESET} [90]: "
-        read -r LOG_RETENTION_DAYS
+        read -r LOG_RETENTION_DAYS || true
         LOG_RETENTION_DAYS="${LOG_RETENTION_DAYS:-90}"
         # Validate number
         if ! [[ "$LOG_RETENTION_DAYS" =~ ^[0-9]+$ ]]; then
@@ -747,9 +747,9 @@ interactive_setup() {
     
     echo ""
     echo -en "${CYAN}$(msg continue_confirm)${RESET} [Y/n]: "
-    local confirm
-    read -r confirm
-    if [[ "$confirm" =~ ^[Nn] ]]; then
+    local confirm=""
+    read -r confirm || true
+    if [[ "${confirm:-y}" =~ ^[Nn] ]]; then
         die "$(msg cancelled)"
     fi
 }
@@ -1431,7 +1431,7 @@ if [[ "$SETUP_TIMEZONE" == "true" ]]; then
     
     if is_interactive; then
         echo -en "${CYAN}$(msg enter_timezone)${RESET} [$CURRENT_TZ]: "
-        read -r NEW_TZ
+        read -r NEW_TZ || true
         NEW_TZ="${NEW_TZ:-$CURRENT_TZ}"
     else
         NEW_TZ="UTC"
