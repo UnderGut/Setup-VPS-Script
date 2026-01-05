@@ -5,7 +5,7 @@ cat > /tmp/secure_ssh.sh <<'EOF'
 # ║                       SETUP VPS SCRIPT v0.5-beta                             ║
 # ║          Automated security configuration for Remnawave Node & VPN           ║
 # ║                                                                              ║
-# ║  GitHub:   https://github.com/UnderGut/setup-vps-script                      ║
+# ║  GitHub:   https://github.com/UnderGut/Setup-VPS-Script                      ║
 # ║  License:  MIT                                                               ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 

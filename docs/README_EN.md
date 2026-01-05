@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Debian](https://img.shields.io/badge/Debian-11+-A81D33?logo=debian)](https://www.debian.org/)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04+-E95420?logo=ubuntu)](https://ubuntu.com/)
-[![Version](https://img.shields.io/badge/version-0.5--beta-blue.svg)](https://github.com/UnderGut/setup-vps-script)
+[![Version](https://img.shields.io/badge/version-0.5--beta-blue.svg)](https://github.com/UnderGut/Setup-VPS-Script)
 
 **Beginner-friendly** automated security configuration script for Linux servers. Designed for [Remnawave](https://github.com/remnawave/panel) VPN panel node deployment.
 
@@ -41,13 +41,13 @@
 ### One-liner (recommended)
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/UnderGut/setup-vps-script/main/secure-vps-setup.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/UnderGut/Setup-VPS-Script/main/secure-vps-setup.sh)
 ```
 
 ### Download and run
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/UnderGut/setup-vps-script/main/secure-vps-setup.sh -o setup.sh
+curl -fsSL https://raw.githubusercontent.com/UnderGut/Setup-VPS-Script/main/secure-vps-setup.sh -o setup.sh
 chmod +x setup.sh
 ./setup.sh
 ```
